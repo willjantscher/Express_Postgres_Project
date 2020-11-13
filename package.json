@@ -1,0 +1,23 @@
+{
+  "name": "express_postgres_project",
+  "version": "1.0.0",
+  "description": "Attempt to connect express app with local postgres server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willjantscher/Express_Postgres_Project.git"
+  },
+  "author": "Will Jantscher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willjantscher/Express_Postgres_Project/issues"
+  },
+  "homepage": "https://github.com/willjantscher/Express_Postgres_Project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
