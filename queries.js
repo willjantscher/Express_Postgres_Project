@@ -24,7 +24,7 @@ const getStudentByStudentId = (request, response) => {
     // $1 is a numbered
     pool.query('SELECT * FROM students WHERE id = $1', [id], (error, results) => {
         console.log(`The id being passed in is ${id}`)
-        console.log(typeof(id))
+        console.log(results.rows[0])
         if (error) {
         throw error
         }
@@ -39,12 +39,13 @@ const getStudentByStudentId = (request, response) => {
 // NEED to be able to read the assigned id
 const createStudent = (request, response) => {
     const { name, studentId } = request.body
-    pool.query('INSERT INTO students (name, studentId ) VALUES ($1, $2)', [name, studentId], (error, results) => {
+    pool.query('INSERT INTO students (name, studentId ) VALUES ($1, $2)', [name, studentId], function(error, results) {
         if (error) {
         throw error
         }
+        console.log(results.rows)
         //console.log(results.insertId)
-        response.status(201).send(`Student added with ID: ${results.insertId}`)
+        response.status(201).send(`Student added with ID: ${results.inputId}`)
     })
 }
 
