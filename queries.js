@@ -20,9 +20,9 @@ const getStudents = (request, response) => {
 }
 
 const getStudentByStudentId = (request, response) => {
-    const id = parseInt(request.params.studentId)
+    const id = parseInt(request.params.id)
     // $1 is a numbered
-    pool.query('SELECT * FROM students WHERE studentId = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM students WHERE id = $1', [id], (error, results) => {
         console.log(`The id being passed in is ${id}`)
         console.log(typeof(id))
         if (error) {
@@ -32,19 +32,26 @@ const getStudentByStudentId = (request, response) => {
     })
 }
 
+
+
+
+
+// NEED to be able to read the assigned id
 const createStudent = (request, response) => {
     const { name, studentId } = request.body
     pool.query('INSERT INTO students (name, studentId ) VALUES ($1, $2)', [name, studentId], (error, results) => {
         if (error) {
         throw error
         }
+        //console.log(results.insertId)
         response.status(201).send(`Student added with ID: ${results.insertId}`)
     })
 }
 
 const updateStudent = (request, response) => {
-    const id = parseInt(request.params.studentId)
+    const id = parseInt(request.params.id)
     const { name, studentId } = request.body
+    console.log(name, studentId)
     pool.query(
       'UPDATE students SET name = $1, studentId = $2 WHERE id = $3',
       [name, studentId, id],
@@ -58,9 +65,9 @@ const updateStudent = (request, response) => {
 }
 
 const deleteStudent = (request, response) => {
-    const id = parseInt(request.params.studentId)
+    const id = parseInt(request.params.id)
   
-    pool.query('DELETE FROM students WHERE studentId = $1', [id], (error, results) => {
+    pool.query('DELETE FROM students WHERE id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
