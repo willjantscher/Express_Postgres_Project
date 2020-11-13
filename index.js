@@ -17,11 +17,26 @@
 // created api database and connected
 // 
 
+// TABLE SETUP
+// CREATE TABLE students (
+//     ID SERIAL PRIMARY KEY,
+//     name VARCHAR(30),
+//     studentId integer
+//   );
+
+// Insert Students
+// INSERT INTO students (name, studentId) VALUES
+// ('JOHN BROWN', 23),
+// ('JOHN WICK', 33),
+// ('ABRAHAM LINCOLN',66),
+// ('DAMEON ADOLPHIN', 33),
+// ('STEVE JOBS', 42);
 
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+const port = 3003
+const db = require('./queries')
 
 app.use(bodyParser.json())
 app.use(
@@ -29,3 +44,24 @@ app.use(
     extended: true,
   })
 )
+
+// CODE -------------------------------------------------------
+
+// We’ll tell a route to look for a GET request on the root (/) URL, and return some JSON.
+app.get('/', (request, response) => {
+    response.json({ info: 'Node.js, Express, and Postgres API' })
+})
+// Now set the app to listen on the port you set.
+app.listen(port, () => {
+    console.log(`App running on port ${port}.`)
+})
+
+
+
+app.get('/students', db.getStudents)
+app.get('/students/:id', db.getStudentByStudentId)
+app.post('/students', db.createStudent)
+app.put('/students/:id', db.updateStudent)
+app.delete('/students/:id', db.deleteStudent)
+
+
